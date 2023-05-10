@@ -1,5 +1,5 @@
 const axios=require("axios")
-const {Pokemon,Types}=require('../db')
+const {Pokemon,Type}=require('../db')
 const URL="https://pokeapi.co/api/v2/pokemon"
 
 const findAllPokemonsApi=async()=>{
@@ -9,7 +9,15 @@ const findAllPokemonsApi=async()=>{
 }
 
 const findAllPokemonsDB=async()=>{
-    return [];
+    return await Pokemon.findAll({
+        include:{
+            model: Type,
+            atributes: ['name'],
+            through:{
+                atributes:[],
+            },
+        }
+    })
 }
 const filterGenreGame=async()=>{
 
@@ -28,7 +36,7 @@ const PokemonsFilterData=(pokemon)=>{
             attack: pokemon.stats[1].base_stat,
             defense: pokemon.stats[2].base_stat,
             speed: pokemon.stats[5].base_stat,
-            types: pokemon.types
+            types: pokemon.types.map(type=>type.type)
         };
     //console.log(pokemonFilter);
     return pokemonFilter;

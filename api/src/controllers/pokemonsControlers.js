@@ -42,15 +42,15 @@ const findAllPokemons=async(pag=1,filter,order,name,type)=>{
 
 const pokemonId=async(idPokemon,source)=>{
     
-    const detailVideogame= source==="api"
-        ?(await axios.get(`${URL}/${idPokemon}`)).data 
-        :await Videogame.findByPk(idPokemon)
-    return detailVideogame;
+    const detailPokemon= source==="api"
+        ?PokemonsFilterData((await axios.get(`${URL}/${idPokemon}`)).data)
+        :await Pokemon.findByPk(idPokemon)
+    return detailPokemon;
 }
 
-const createPokemon=async(params)=>{
-    const newPokemon= await Pokemon.create(params);
-    newPokemon.addTypes(params)
+const createPokemon=async(name,height,weight,image,live, attack,defense, speed, types)=>{
+    const newPokemon= await Pokemon.create({name,height,weight,image,live, attack,defense, speed});
+    newPokemon.addTypes(types)
     return newPokemon;
 }
 
