@@ -1,14 +1,15 @@
 const axios=require("axios")
-const {Pokemon,Types}=require('../db')
-const {findAllPokemonsApi,findAllPokemonsDB,filterGenreGame,findNameGame,PokemonsFilterData}=require('./findPokemons')
+const {Pokemon}=require('../db')
+const {findAllPokemonsApi,findAllPokemonsDB,filterTypePokemon,findNamePokemon,PokemonsFilterData}=require('./findPokemons')
 const URL="https://pokeapi.co/api/v2/pokemon"
 
 const findAllPokemons=async(pag=1,filter,order,name,type)=>{
+   
+    if (name) return await findNamePokemon(name);
     const pokemonsBD= await findAllPokemonsDB()
     const pokemonsApi=await findAllPokemonsApi()
-    let allPokemons=await[...pokemonsBD,...pokemonsApi]
-    if (type) allPokemons=await filterGenreGame(type,pokemonsApi)
-    if (name) allPokemons=await findNameGame(name);
+    let allPokemons=[...pokemonsBD,...pokemonsApi]
+    if (type) allPokemons=await filterTypePokemon(type,allPokemons)
     switch (filter) {
         case "api":
             allPokemons=pokemonsApi;
@@ -30,14 +31,8 @@ const findAllPokemons=async(pag=1,filter,order,name,type)=>{
         case "attackDes":
             allPokemons.sort((y, x) => x.attack - y.attack); //Ordenar rating mayor a menor
             break;
-    }
-    //allPokemons.sort((y, x) => x.rating - y.rating); //Ordenar rating mayor a menor
-    //allPokemons.sort((y, x) => y.rating - x.rating); //Ordenar rating menor a mayor
-    //allPokemons.sort((x, y) => x.name.localeCompare(y.name)); //Ordenar nombre mayor a menor
-    //allPokemons.sort((x, y) => y.name.localeCompare(x.name)); //Ordenar nombre menor a mayor
-    console.log(allPokemons)
-        
-    return allPokemons.slice((pag*15)-15,(pag*15));//0-14 15-29 30-44
+    }        
+    return allPokemons.slice((pag*12)-12,(pag*12));//0-11 12-23 24-35
 }
 
 const pokemonId=async(idPokemon,source)=>{

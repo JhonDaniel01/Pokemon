@@ -4,8 +4,8 @@ const getPokemonsHandler=async(req,res)=>{
     //res.status(200).json({Pokemons:"Trae todos los pokemons"}) 
    
     try {
-        const {page,filter,order,name,type}=req.query;
-        const pokemons=await findAllPokemons(page,filter,order,name,type);
+        const {pag,filter,order,name,type}=req.query;
+        const pokemons=await findAllPokemons(pag,filter,order,name,type);
         res.status(200).json(pokemons);
     } catch (error) {
         res.status(400).json({error:error.message})
