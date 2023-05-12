@@ -1,26 +1,24 @@
-import axios from ("axios")
-export const ADD_CHARACTER = "ADD_CHARACTER";
-export const REMOVE_CHARACTER = "REMOVE_CHARACTER";
-export const GET_CHARACTERS = "GET_CHARACTERS";
+import axios from "axios"
+export const ADD_POKEMON = "ADD_POKEMON";
+export const GET_TYPES = "GET_TYPES";
+export const GET_ALL_POKEMON = "GET_ALL_POKEMON";
+export const GET_DETAIL_POKEMON = "GET_ALL_POKEMON";
+export const URL="http://localhost:3001/"
 
-export const getCharacters = () => {
-    // return function (dispatch) {
-    //   fetch("https://jsonplaceholder.typicode.com/users")
-    //     .then((response) => response.json())
-    //     .then((data) => dispatch({ type: "GET_CHARACTERS", payload: data }));
-    // };
-    return function (dispatch) {
-      axios("https://jsonplaceholder.typicode.com/users").then((data) =>
-        dispatch({ type: GET_CHARACTERS, payload: data.data })
-      );
+
+export const getPokemons = () => {
+    return async function (dispatch) {
+      const response=await axios.get(`http://localhost:3001/pokemons`)
+      console.log(response.data);
+      return dispatch({ type: 'GET_ALL_POKEMON', payload: response.data })
     };
   };
   
   export const removeCharacter = (id) => {
     console.log(id);
-    return { type: REMOVE_CHARACTER, payload: id };
+    return { type: GET_DETAIL_POKEMON, payload: id };
   };
-  export const addCharacter = (character) => {
-    console.log(character);
-    return { type: ADD_CHARACTER, payload: character };
+  export const addCharacter = (pokemon) => {
+    console.log(pokemon);
+    return { type: ADD_POKEMON, payload: pokemon };
   };

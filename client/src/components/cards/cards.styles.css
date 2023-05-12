@@ -4,4 +4,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 20px;
+    /* justify-content: space-around;
+    flex-wrap: wrap;
+    width: 100%; */
 }

@@ -1,12 +1,13 @@
 import Card from "../card/Card";
 import "./cards.styles.css"
-const Cards=()=>{
+const Cards=({allPokemons})=>{
+    console.log(allPokemons,'cards');
     return(
         <div className="cardsContainer">
-            <Card></Card>
-            <Card></Card>
-            <Card></Card>
-            <Card></Card>
+            {allPokemons && allPokemons.map(pokemon=>{
+                return <Card pokemon={pokemon}/>
+            }) }
+            
         </div>
     )
  }

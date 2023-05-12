@@ -1,10 +1,11 @@
 import "./card.styles.css"
-const Card=()=>{
+const Card=({pokemon})=>{
+    console.log(pokemon);
     return(
         <div className="cardContainer">
-            <p>Nombre: Jhon</p>
-            <p>edad: 35</p>
-            <p>Telefono: 31244846</p>
+            <p>{pokemon.name}</p>
+            <img src={pokemon.image}/>
+            <p>{pokemon.types[0].name}</p>
         </div>
     )
  }
