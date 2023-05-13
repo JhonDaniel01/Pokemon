@@ -1,5 +1,5 @@
 import {GET_ALL_POKEMON,GET_TYPES,ADD_POKEMON,GET_DETAIL_POKEMON,} from './actions'
-let initialState={allPokemons:[{name: 'Jhon',image: '123',types:['Fuego','tierra']}],allTypes:[]}
+let initialState={allPokemons:[],allTypes:[]}
 
 const rootReducer=(state=initialState,action)=>{
     switch (action.type) {
