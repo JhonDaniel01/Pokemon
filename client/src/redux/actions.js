@@ -14,9 +14,12 @@ export const getPokemons = () => {
     };
   };
   
-  export const removeCharacter = (id) => {
-    console.log(id);
-    return { type: GET_DETAIL_POKEMON, payload: id };
+  export const detailPokemon = (id) => {
+    return async function (dispatch) {
+      const response=await axios.get(`http://localhost:3001/pokemons/${id}`)
+      console.log(response.data);
+      return dispatch({ type: 'GET_DETAIL_POKEMON', payload: response.data })
+    };
   };
   export const addCharacter = (pokemon) => {
     console.log(pokemon);
