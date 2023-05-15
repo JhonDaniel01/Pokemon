@@ -1,10 +1,9 @@
-.cardContainer{
-    width: 200px;
-    height: 400px;
+.detailContainer{
+    width: 500px;
     display: flex;
     flex-direction: column;
-    background-color: rgba(5, 241, 103, 0.319);
-    border: 2px solid rgb(0, 0, 255);
+    background-color: rgba(5, 241, 103, 0.612);
+    border: 1px solid rgb(0, 0, 255);
     border-radius: 10px;
     padding: 20px;
     cursor: pointer;
@@ -14,6 +13,6 @@
     transition: transform 0.25s ease-out;
 }
 
-.cardContainer:hover {
+.detailContainer:hover {
     transform: scale(1.05);
 }

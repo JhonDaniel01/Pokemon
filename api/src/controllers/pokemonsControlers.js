@@ -32,7 +32,8 @@ const findAllPokemons=async(pag=1,filter,order,name,type)=>{
             allPokemons.sort((y, x) => x.attack - y.attack); //Ordenar rating mayor a menor
             break;
     }        
-    return allPokemons.slice((pag*12)-12,(pag*12));//0-11 12-23 24-35
+    //return allPokemons.slice((pag*12)-12,(pag*12));//0-11 12-23 24-35
+    return allPokemons
 }
 
 const pokemonId=async(idPokemon,source)=>{

@@ -1,7 +1,7 @@
 import Card from "../card/Card";
 import "./cards.styles.css"
 const Cards=({allPokemons})=>{
-    console.log(allPokemons,'cards');
+    //console.log(allPokemons,'cards');
     return(
         <div className="cardsContainer">
             {allPokemons && allPokemons.map(pokemon=>{

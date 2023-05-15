@@ -2,7 +2,7 @@ const axios=require("axios")
 const {Pokemon,Type}=require('../db')
 const {Op}=require('sequelize')
 const URL="https://pokeapi.co/api/v2/pokemon"
-const amountPokemonsApi=20;
+const amountPokemonsApi=50;
 
 const findAllPokemonsApi=async()=>{
      const allPokemons=(await axios.get(`${URL}?limit=${amountPokemonsApi}`)).data.results;
