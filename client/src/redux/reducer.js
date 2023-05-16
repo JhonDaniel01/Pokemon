@@ -9,6 +9,8 @@ const rootReducer=(state=initialState,action)=>{
             return {...state,allPokemons: action.payload}
         case GET_DETAIL_POKEMON:
             return {...state,detailPokemon: action.payload}
+        case GET_TYPES:
+            return {...state,allTypes: action.payload}
         default:
             return state;
     }

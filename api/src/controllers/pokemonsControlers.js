@@ -1,5 +1,5 @@
 const axios=require("axios")
-const {Pokemon}=require('../db')
+const {Pokemon,Type}=require('../db')
 const {findAllPokemonsApi,findAllPokemonsDB,filterTypePokemon,findNamePokemon,PokemonsFilterData}=require('./findPokemons')
 const URL="https://pokeapi.co/api/v2/pokemon"
 
@@ -40,7 +40,19 @@ const pokemonId=async(idPokemon,source)=>{
     
     const detailPokemon= source==="api"
         ?PokemonsFilterData((await axios.get(`${URL}/${idPokemon}`)).data)
-        :await Pokemon.findByPk(idPokemon)
+        //:await Pokemon.findByPk(idPokemon)
+        : await Pokemon.findAll({
+            where: {
+                id: idPokemon
+            },
+            include:{
+                model: Type,
+                attributes: ['name'],
+                through:{
+                    attributes:[],
+                },
+            }
+        })
     return detailPokemon;
 }
 

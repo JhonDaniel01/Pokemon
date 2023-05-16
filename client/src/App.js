@@ -15,8 +15,8 @@ function App() {
     <div className="App">
       <Route exact path="/" render={()=><Landing/>}/>
       <Route exact path="/home" render={()=><Home/>}/>
-      <Route path="/home/:id" render={()=><Detail/>}/>
       <Route path="/create" render={()=><Create/>}/>
+      <Route path="/home/:id" render={()=><Detail/>}/>
       
     </div>
   );

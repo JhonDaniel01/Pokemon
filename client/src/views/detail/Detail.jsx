@@ -15,7 +15,7 @@ const Detail=()=>{
     console.log(detailPokemon);
     return(
         <div className="detailContainer">
-        {detailPokemon.name ?(
+        {detailPokemon.live ?(
             <>
             <h1>{detailPokemon.name}</h1>
             <img src={detailPokemon?.image}/>
@@ -24,7 +24,8 @@ const Detail=()=>{
             <h1>defense: {detailPokemon.defense}</h1>
             <h1>speed: {detailPokemon.speed}</h1>
             <h1>height: {detailPokemon.height}</h1>
-            <h1>weight: {detailPokemon.weight}</h1>            </>
+            <h1>weight: {detailPokemon.weight}</h1>            
+            </>
             ):(<h3>Loading...</h3>)}
         </div>
             )

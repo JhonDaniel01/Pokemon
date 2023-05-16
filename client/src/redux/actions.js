@@ -11,7 +11,14 @@ export const getPokemons = () => {
     return async function (dispatch) {
       const response=await axios.get(`${URL}pokemons`)
       //console.log(response.data);
-      return dispatch({ type: 'GET_ALL_POKEMON', payload: response.data })
+      return dispatch({ type: GET_ALL_POKEMON, payload: response.data })
+    };
+  };
+  export const getTypes = () => {
+    return async function (dispatch) {
+      const response=await axios.get(`${URL}types`)
+      //console.log(response.data);
+      return dispatch({ type:GET_TYPES , payload: response.data })
     };
   };
   export const getByName = (name) => {
