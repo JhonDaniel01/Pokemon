@@ -15,7 +15,7 @@ const Detail=()=>{
     console.log(detailPokemon);
     return(
         <div className="detailContainer">
-        {detailPokemon.live ?(
+        {detailPokemon.types ?(
             <>
             <h1>{detailPokemon.name}</h1>
             <img src={detailPokemon?.image}/>

@@ -41,7 +41,7 @@ const pokemonId=async(idPokemon,source)=>{
     const detailPokemon= source==="api"
         ?PokemonsFilterData((await axios.get(`${URL}/${idPokemon}`)).data)
         //:await Pokemon.findByPk(idPokemon)
-        : await Pokemon.findAll({
+        : await Pokemon.findOne({
             where: {
                 id: idPokemon
             },
