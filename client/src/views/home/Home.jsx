@@ -10,6 +10,7 @@ const Home=()=>{
     const allPokemons=useSelector((state)=>state.allPokemons);
     //const [findPokemon,setFindPokemon]=useState(allPokemons);
     const [search,setSearch]=useState("");
+    const [pag,setPag]=useState(1);
 
     const handleChange=(event)=>{
         event.preventDefault()
@@ -30,12 +31,23 @@ const Home=()=>{
         dispatch(getPokemons())
         return (()=>{/*didmount*/})
     },[dispatch])
- 
+    const nPag=Math.ceil((allPokemons?.length)/12)
+    const paginas=[];
+    
+    let pokemons=allPokemons?.slice((pag*12)-12,(pag*12));//0-11 12-23 24-35
+    for (let i = 0; i < nPag; i++) {
+        paginas.push(i+1)
+        
+    }
+    const pagHandler=(event)=>{
+        setPag(event.target.name)
+    }
     return(
         <div className="homeContainer">
             <h2>Home</h2>
             <Navbar handleChange={handleChange} handleSubmit={handelSubmit}/>
-            <Cards allPokemons={allPokemons}/>
+            {paginas.map(pag=><button name={pag} onClick={pagHandler}>{pag}</button>) }
+            <Cards  allPokemons={pokemons}/>
         </div>
     )
  }

@@ -8,7 +8,8 @@ const Card=({pokemon})=>{
         <div className="cardContainer">
             <h1>{name}</h1>
             <img src={image}/>
-            <h1>{types[0].name}</h1>
+            {types.map(type=><a>{type.name}</a>)}
+            
         </div>
         </Link>
     )

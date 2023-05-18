@@ -24,7 +24,9 @@ const Detail=()=>{
             <h1>defense: {detailPokemon.defense}</h1>
             <h1>speed: {detailPokemon.speed}</h1>
             <h1>height: {detailPokemon.height}</h1>
-            <h1>weight: {detailPokemon.weight}</h1>            
+            <h1>weight: {detailPokemon.weight}</h1>
+            <h1>Types:</h1>
+            {detailPokemon.types.map(type=><h2>{type.name}</h2>)}            
             </>
             ):(<h3>Loading...</h3>)}
         </div>
