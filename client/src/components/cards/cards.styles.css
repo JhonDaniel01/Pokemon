@@ -1,9 +1,13 @@
 .cardsContainer {
     width: 85vw;
     margin: 0 auto;
-    display: grid;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    /* display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 20px;
+    grid-gap: 20px; */
     /* justify-content: space-around;
     flex-wrap: wrap;
     width: 100%; */

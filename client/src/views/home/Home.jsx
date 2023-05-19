@@ -42,11 +42,28 @@ const Home=()=>{
     const pagHandler=(event)=>{
         setPag(event.target.name)
     }
+    const handleChangeOrder=(event)=>{
+        const typeOrder=event.target.value
+        dispatch(getPokemons(typeOrder))
+    }
     return(
         <div className="homeContainer">
             <h2>Home</h2>
             <Navbar handleChange={handleChange} handleSubmit={handelSubmit}/>
-            {paginas.map(pag=><button name={pag} onClick={pagHandler}>{pag}</button>) }
+            <form>
+                <label>Order:</label><br/>
+                <label> Name Z-A</label>
+                <input type="radio" name="Order" value="nameAsc" onChange={handleChangeOrder}/><br/>
+                <label> Name A-Z</label>
+                <input type="radio" name="Order" value="nameDes" onChange={handleChangeOrder}/><br/>
+                <label> Attack May-Men</label>
+                <input type="radio" name="Order" value="attackAsc" onChange={handleChangeOrder}/><br/>
+                <label>  Attack Men-May</label>
+                <input type="radio" name="Order" value="attackDes" onChange={handleChangeOrder}/>
+            </form>
+            <div className="pagin">
+                {paginas.map(pag=><button name={pag} onClick={pagHandler}>{pag}</button>) }
+            </div>
             <Cards  allPokemons={pokemons}/>
         </div>
     )
