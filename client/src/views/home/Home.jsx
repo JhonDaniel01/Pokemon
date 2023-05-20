@@ -1,6 +1,6 @@
 import { useEffect,useState } from "react";
 import {useSelector,useDispatch} from 'react-redux'
-import { getPokemons, getByName } from "../../redux/actions";
+import { getPokemons, getByName,getTypes} from "../../redux/actions";
 
 import Cards from "../../components/cards/Cards";
 import Navbar from "../../components/navbar/Navbar";
@@ -8,6 +8,7 @@ import "./home.styles.css"
 const Home=()=>{
     const dispatch=useDispatch();
     const allPokemons=useSelector((state)=>state.allPokemons);
+    const allTypes=useSelector((state)=>state.allTypes);
     //const [findPokemon,setFindPokemon]=useState(allPokemons);
     const [search,setSearch]=useState("");
     const [pag,setPag]=useState(1);
@@ -29,6 +30,7 @@ const Home=()=>{
     // }
     useEffect(()=>{
         dispatch(getPokemons())
+        dispatch(getTypes())
         return (()=>{/*didmount*/})
     },[dispatch])
     const nPag=Math.ceil((allPokemons?.length)/12)
@@ -44,7 +46,21 @@ const Home=()=>{
     }
     const handleChangeOrder=(event)=>{
         const typeOrder=event.target.value
+        pokemons=[];
         dispatch(getPokemons(typeOrder))
+    }
+    console.log(allTypes)
+    const selectFilter=()=>{
+        return(
+            <form action="#">
+            <label for="filterType">Filter for Type: </label>
+            <select name="filterType" id="filtType">
+                {allTypes.map(type=> <option value={type.name}>{type.name}</option>)}
+            </select>
+            <input type="submit" value="Filter" />
+        </form>
+
+        )
     }
     return(
         <div className="homeContainer">
@@ -61,6 +77,7 @@ const Home=()=>{
                 <label>  Attack Men-May</label>
                 <input type="radio" name="Order" value="attackDes" onChange={handleChangeOrder}/>
             </form>
+            {selectFilter()}
             <div className="pagin">
                 {paginas.map(pag=><button name={pag} onClick={pagHandler}>{pag}</button>) }
             </div>
