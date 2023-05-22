@@ -12,17 +12,17 @@ const Home=()=>{
     //const [findPokemon,setFindPokemon]=useState(allPokemons);
     const [search,setSearch]=useState("");
     const [pag,setPag]=useState(1);
-
+    const [type,setType]=useState("");
     const handleChange=(event)=>{
-        event.preventDefault()
+        //event.preventDefault()
         setSearch(event.target.value)
     }
 
-    const handelSubmit=(event)=>{
+    const handleSubmit=(event)=>{
         event.preventDefault()
         dispatch(getByName(search))
     }
-    // const handelSubmit=(event)=>{
+    // const handleSubmit=(event)=>{
     //     event.preventDefault()
     //     const filter=allPokemons.filter(pokemon=>pokemon.name.includes(search))
     //     console.log(filter);
@@ -45,39 +45,73 @@ const Home=()=>{
         setPag(event.target.name)
     }
     const handleChangeOrder=(event)=>{
-        const typeOrder=event.target.value
+        const order=event.target.value
         pokemons=[];
-        dispatch(getPokemons(typeOrder))
+        dispatch(getPokemons(order))
     }
-    console.log(allTypes)
-    const selectFilter=()=>{
+    //console.log(allTypes)
+    const selectFilterType=()=>{
         return(
             <form action="#">
             <label for="filterType">Filter for Type: </label>
-            <select name="filterType" id="filtType">
-                {allTypes.map(type=> <option value={type.name}>{type.name}</option>)}
+            <select name="filterType" id="filterType" onChange={handleChangeType}>
+                {allTypes.map(type=> <option value={type.name} >{type.name}</option>)}
             </select>
-            <input type="submit" value="Filter" />
-        </form>
-
+            <input type="submit" value="Filter" onClick={handleSubmitType}/>
+            </form>
         )
     }
+    const handleChangeType=(event)=>{
+        console.log(event);
+        setType(event.target.value)
+    }
+    const handleSubmitType=(event)=>{
+        event.preventDefault();
+        dispatch(getPokemons(type,type))
+    }
+    const selectFiterOrigin=()=>{
+        return(
+            <form action="#">
+            <label for="filtOrigin">Filter for origin data: </label>
+            <select name="filterOrigin" id="filtOrigin" onChange={handleChangeFilOrder}>
+                <option >--Selec Origin--</option>
+                <option value="DataBase" >Data Base</option>
+                <option value="Api" >Api</option>
+            </select>
+            </form>
+            
+        )
+    }
+    const handleChangeFilOrder=(event)=>{
+        filterOrigin(event.target.value)
+    }
+   const filterOrigin=(origin)=>{
+        let filter=[]
+        const regex = /^([0-9])+$/
+        if(origin==="DataBase"){
+            filter=allPokemons.filter(pokemon=>!regex.test(pokemon.id))
+            pokemons=filter;
+        }
+        if(origin==="Api"){
+            filter=allPokemons.filter(pokemon=>regex.test(pokemon.id))
+        }
+   }
     return(
         <div className="homeContainer">
             <h2>Home</h2>
-            <Navbar handleChange={handleChange} handleSubmit={handelSubmit}/>
-            <form>
-                <label>Order:</label><br/>
-                <label> Name Z-A</label>
-                <input type="radio" name="Order" value="nameAsc" onChange={handleChangeOrder}/><br/>
-                <label> Name A-Z</label>
-                <input type="radio" name="Order" value="nameDes" onChange={handleChangeOrder}/><br/>
-                <label> Attack May-Men</label>
-                <input type="radio" name="Order" value="attackAsc" onChange={handleChangeOrder}/><br/>
-                <label>  Attack Men-May</label>
-                <input type="radio" name="Order" value="attackDes" onChange={handleChangeOrder}/>
+            <Navbar handleChange={handleChange} handleSubmit={handleSubmit}/>
+            <form action="#">
+                <label>Order:</label>
+                <select name="order" id="order" onChange={handleChangeOrder}>
+                    <option value="nameDes" >Name A-Z</option>
+                    <option value="nameAsc" >Name Z-A</option>
+                    <option value="attackDes" >Attack May-Men</option>
+                    <option value="attackAsc" >Attack Men-May</option>
+                </select>
+                <input type="submit" value="Filter" onClick=""/>
             </form>
-            {selectFilter()}
+            {selectFilterType()}            
+            {selectFiterOrigin()}
             <div className="pagin">
                 {paginas.map(pag=><button name={pag} onClick={pagHandler}>{pag}</button>) }
             </div>

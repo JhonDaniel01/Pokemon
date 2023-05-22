@@ -7,9 +7,9 @@ export const GET_BY_NAME = "GET_BY_NAME";
 export const URL="http://localhost:3001/"
 
 
-export const getPokemons = (typeOrder="") => {
+export const getPokemons = (order="",type="") => {
     return async function (dispatch) {
-      const response=await axios.get(`${URL}pokemons?order=${typeOrder}`)
+      const response=await axios.get(`${URL}pokemons?order=${order}&&type=${type}`)
       //console.log(response.data);
       return dispatch({ type: GET_ALL_POKEMON, payload: response.data })
     };
