@@ -1,6 +1,6 @@
 import { useEffect,useState } from "react";
 import {useSelector,useDispatch} from 'react-redux'
-import { getPokemons, getByName,getTypes} from "../../redux/actions";
+import { getPokemons, getByName,getTypes, filterFront} from "../../redux/actions";
 
 import Cards from "../../components/cards/Cards";
 import Navbar from "../../components/navbar/Navbar";
@@ -9,10 +9,11 @@ const Home=()=>{
     const dispatch=useDispatch();
     const allPokemons=useSelector((state)=>state.allPokemons);
     const allTypes=useSelector((state)=>state.allTypes);
-    //const [findPokemon,setFindPokemon]=useState(allPokemons);
+    const copyAllPokemons=useSelector((state)=>state.copyAllPokemons);
+    
     const [search,setSearch]=useState("");
     const [pag,setPag]=useState(1);
-    const [type,setType]=useState("");
+    
     const handleChange=(event)=>{
         //event.preventDefault()
         setSearch(event.target.value)
@@ -46,33 +47,30 @@ const Home=()=>{
     }
     const handleChangeOrder=(event)=>{
         const order=event.target.value
-        pokemons=[];
         dispatch(getPokemons(order))
     }
-    //console.log(allTypes)
+    
     const selectFilterType=()=>{
         return(
             <form action="#">
-            <label for="filterType">Filter for Type: </label>
+            <label for="filterType">Filter by type: </label>
             <select name="filterType" id="filterType" onChange={handleChangeType}>
+                <option value="noFilterType" >--Select Type--</option>
                 {allTypes.map(type=> <option value={type.name} >{type.name}</option>)}
             </select>
-            <input type="submit" value="Filter" onClick={handleSubmitType}/>
             </form>
         )
     }
     const handleChangeType=(event)=>{
         console.log(event);
-        setType(event.target.value)
-    }
-    const handleSubmitType=(event)=>{
-        event.preventDefault();
+        const type=event.target.value;
         dispatch(getPokemons(type,type))
     }
+ 
     const selectFiterOrigin=()=>{
         return(
             <form action="#">
-            <label for="filtOrigin">Filter for origin data: </label>
+            <label for="filtOrigin">filter by data source: </label>
             <select name="filterOrigin" id="filtOrigin" onChange={handleChangeFilOrder}>
                 <option >--Selec Origin--</option>
                 <option value="DataBase" >Data Base</option>
@@ -89,11 +87,12 @@ const Home=()=>{
         let filter=[]
         const regex = /^([0-9])+$/
         if(origin==="DataBase"){
-            filter=allPokemons.filter(pokemon=>!regex.test(pokemon.id))
-            pokemons=filter;
+            filter=copyAllPokemons.filter(pokemon=>!regex.test(pokemon.id))
+            dispatch(filterFront(filter));
         }
         if(origin==="Api"){
-            filter=allPokemons.filter(pokemon=>regex.test(pokemon.id))
+            filter=copyAllPokemons.filter(pokemon=>regex.test(pokemon.id))
+            dispatch(filterFront(filter));
         }
    }
     return(
@@ -101,14 +100,14 @@ const Home=()=>{
             <h2>Home</h2>
             <Navbar handleChange={handleChange} handleSubmit={handleSubmit}/>
             <form action="#">
-                <label>Order:</label>
+                <label>Order: </label>
                 <select name="order" id="order" onChange={handleChangeOrder}>
+                    <option value="noOrder" >--Select order--</option>
                     <option value="nameDes" >Name A-Z</option>
                     <option value="nameAsc" >Name Z-A</option>
                     <option value="attackDes" >Attack May-Men</option>
                     <option value="attackAsc" >Attack Men-May</option>
                 </select>
-                <input type="submit" value="Filter" onClick=""/>
             </form>
             {selectFilterType()}            
             {selectFiterOrigin()}

@@ -1,8 +1,9 @@
+import {Link} from 'react-router-dom'
 const Landing=()=>{
     return(
-        <>
-            <h1>Estas en landing page</h1>
-        </>
+        <div>
+            <Link to="/home"><button>Start</button></Link>
+        </div>
     )
  }
  export default Landing;

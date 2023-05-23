@@ -2,8 +2,9 @@ import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { getDetailPokemon } from '../../redux/actions'
+import {Link} from 'react-router-dom'
 import './detail.styles.css'
-import Card from '../../components/card/Card'
+
 const Detail=()=>{
     const dispatch=useDispatch()
     const detailPokemon=useSelector((state)=>state.detailPokemon)
@@ -29,6 +30,7 @@ const Detail=()=>{
             {detailPokemon.types.map(type=><h2>{type.name}</h2>)}            
             </>
             ):(<h3>Loading...</h3>)}
+            <Link to="/home"><button>Regresar</button></Link>
         </div>
             )
  }

@@ -4,6 +4,7 @@ export const GET_TYPES = "GET_TYPES";
 export const GET_ALL_POKEMON = "GET_ALL_POKEMON";
 export const GET_DETAIL_POKEMON = "GET_DETAIL_POKEMON";
 export const GET_BY_NAME = "GET_BY_NAME";
+export const FILTER_FRONT = "FILTER_FRONT";
 export const URL="http://localhost:3001/"
 
 
@@ -39,3 +40,8 @@ export const getPokemons = (order="",type="") => {
     console.log(pokemon);
     return { type: ADD_POKEMON, payload: pokemon };
   };
+
+  export const filterFront=(filterData)=>{
+    console.log(filterData);
+    return function (dispatch){return dispatch({type: FILTER_FRONT, payload: filterData })}
+  }
