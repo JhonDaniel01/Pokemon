@@ -1,37 +1,38 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {Link} from 'react-router-dom'
+import { validate } from "./validate";
+import { useDispatch, useSelector } from "react-redux";
 
  const Create=()=>{
-    //name,height,weight,image,live, attack,defense, speed, types
+    const allTypes=useSelector((state)=>state.allTypes);
+   ;
     const [form,setForm]=useState({
-        name:"",height:"",weight:"",image:"",live:"", attack:"",defense:"", speed:"", types1:"",types2:""  
+        name:"",height:"",weight:"",image:"",live:"", attack:"",defense:"", speed:"", type1:"",type2:""  
     })
     const [error,setError]=useState({
-        name:"",height:"",weight:"",image:"",live:"", attack:"",defense:"", speed:"", types1:"",types2:""  
+        name:"",height:"",weight:"",image:"",live:"", attack:"",defense:"", speed:"", type1:"",type2:""  
     })
+  
+    const selectType=(numType)=>{
+        return(
+            <div>
+            <label for="filterType">Select {numType}: </label>
+            <select name={numType} id="filterType" onChange={handleChange}>
+                <option value="noFilterType" >--Select Type--</option>
+                {allTypes.map(type=> <option name={numType} value={type.id} >{type.name}</option>)}
+            </select>
+            </div>
+        )
+    }
     const handleChange=(event)=>{
         const property=event.target.name
         const value=event.target.value
-
-        validate({...form,[property]:value})
+        console.log(event);
+        setError(validate({...form,[property]:value}))
         setForm({...form,[property]:value})
     }
-    const validate=(form)=>{
-        console.log(form);
-        if (/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/.test(form.image)){
-        setError((prevState) => ({ ...prevState, image: "" }))}
-        else setError((prevState) => ({ ...prevState, image: "Invalid Image" }))
-
-        if (/^[0-9]$|^[1-9][0-9]$|^(100)$/.test(form.live))setError((prevState) => ({ ...prevState, live: "Invalid live" }))
-        else setError((prevState) => ({ ...prevState, live: "Invalid live" }))
-
-        // if (/^[0-9]$|^[1-9][0-9]$|^(150)$/.test(form.attack))setError({...error,attack: ""})
-        // else setError({...error,attack: "Invalid attack"})
-
-        // if (/^[0-9]$|^[1-9][0-9]$|^(100)$/.test(form.defense))setError({...error,defense: ""})
-        // else setError({...error,defense: "Invalid defense"})
-    }
+    
     const handleSubmit=(event)=>{
         event.preventDefault();
         const newPokemon={
@@ -43,7 +44,7 @@ import {Link} from 'react-router-dom'
             attack:form.attack,
             defense:form.defense, 
             speed:form.speed, 
-            types:[form.types1,form.types2]
+            types:[form.type1,form.type2]
         }
         axios.post("http://localhost:3001/pokemons",newPokemon)
         .then(res=>console.log(res)).catch(err=>console.log(err))
@@ -93,12 +94,9 @@ import {Link} from 'react-router-dom'
                 <span>{error.weight}</span>
             </div>
             <div>
-                <label>Type 1: </label>
-                <input type="text" value={form.types1} onChange={handleChange} name="types1"/>
-            </div>
-            <div>
-                <label>Type 2: </label>
-                <input type="text" value={form.types2} onChange={handleChange} name="types2"/>
+                {selectType("type1")}
+                {selectType("type2")}
+                <span>{error.type1}</span>
             </div>
             <button>Create Pokemon</button>
         </form>
