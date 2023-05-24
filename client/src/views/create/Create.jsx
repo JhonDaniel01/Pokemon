@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import {Link} from 'react-router-dom'
 import { validate } from "./validate";
 import { useDispatch, useSelector } from "react-redux";
+import "./create.styles.css"
 
  const Create=()=>{
     const allTypes=useSelector((state)=>state.allTypes);
@@ -51,8 +52,9 @@ import { useDispatch, useSelector } from "react-redux";
 
     }
     return(
-        <div>
-        <form onSubmit={handleSubmit}>
+        <div className="form">
+            <h1>Create Pokemon</h1>
+        <form onSubmit={handleSubmit} className="inputs">
             <div>
                 <label>Name: </label>
                 <input type="text" value={form.name} onChange={handleChange} name="name"/>
@@ -61,7 +63,7 @@ import { useDispatch, useSelector } from "react-redux";
             <div>
                 <label>Image: </label>
                 <input type="text" value={form.image} onChange={handleChange} name="image"/>
-                <span>{error.image}</span>
+                <span >{error.image}</span>
             </div>
             <div>
                 <label>life: </label>
@@ -98,9 +100,9 @@ import { useDispatch, useSelector } from "react-redux";
                 {selectType("type2")}
                 <span>{error.type1}</span>
             </div>
-            <button>Create Pokemon</button>
-        </form>
+            {Object.keys(error).length==0 ? <button>Create Pokemon</button>:null}
         <Link to="/home"><button>Return</button></Link>
+        </form>
         </div>
     )
  }

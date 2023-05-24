@@ -15,7 +15,6 @@ const Home=()=>{
     const [pag,setPag]=useState(1);
     
     const handleChange=(event)=>{
-        //event.preventDefault()
         setSearch(event.target.value)
     }
 
@@ -23,12 +22,7 @@ const Home=()=>{
         event.preventDefault()
         dispatch(getByName(search))
     }
-    // const handleSubmit=(event)=>{
-    //     event.preventDefault()
-    //     const filter=allPokemons.filter(pokemon=>pokemon.name.includes(search))
-    //     console.log(filter);
-    //     setFindPokemon(filter)
-    // }
+    
     useEffect(()=>{
         dispatch(getPokemons())
         dispatch(getTypes())
@@ -37,7 +31,13 @@ const Home=()=>{
     const nPag=Math.ceil((allPokemons?.length)/12)
     const paginas=[];
     
-    let pokemons=allPokemons?.slice((pag*12)-12,(pag*12));//0-11 12-23 24-35
+    let pokemons=[]
+    if (allPokemons[0]){
+        if (allPokemons[0].error){
+        alert(allPokemons[0].error);
+        dispatch(getPokemons())}
+        else pokemons=allPokemons?.slice((pag*12)-12,(pag*12));//0-11 12-23 24-35
+    }
     for (let i = 0; i < nPag; i++) {
         paginas.push(i+1)
         
@@ -53,7 +53,7 @@ const Home=()=>{
     const selectFilterType=()=>{
         return(
             <form action="#">
-            <label for="filterType">Filter by type: </label>
+            <label >Filter by type: </label>
             <select name="filterType" id="filterType" onChange={handleChangeType}>
                 <option value="noFilterType" >--Select Type--</option>
                 {allTypes.map(type=> <option value={type.name} >{type.name}</option>)}
@@ -70,7 +70,7 @@ const Home=()=>{
     const selectFiterOrigin=()=>{
         return(
             <form action="#">
-            <label for="filtOrigin">filter by data source: </label>
+            <label >filter by data source: </label>
             <select name="filterOrigin" id="filtOrigin" onChange={handleChangeFilOrder}>
                 <option >--Selec Origin--</option>
                 <option value="DataBase" >Data Base</option>

@@ -24,15 +24,14 @@ export const getPokemons = (order="",type="") => {
   };
   export const getByName = (name) => {
     return async function (dispatch) {
-      const response=await axios.get(`${URL}pokemons?name=${name}`)
-      console.log(response.data);
-      return dispatch({ type: GET_BY_NAME, payload: response.data })
-    };
+    const response=await axios.get(`${URL}pokemons?name=${name}`)
+        console.log(response);
+        return dispatch({ type: GET_BY_NAME, payload: response.data })
+     };
   };
   export const getDetailPokemon = (id) => {
     return async function (dispatch) {
       const response=await axios.get(`http://localhost:3001/pokemons/${id}`)
-      console.log(response.data);
       return dispatch({ type: GET_DETAIL_POKEMON, payload: response.data })
     };
   };

@@ -74,7 +74,10 @@ const findNamePokemon=async(name)=>{
         namePokemonDb.push(namePokemonApi);
     } catch (error) {}
       
-    return namePokemonDb;
+    //return namePokemonDb;
+    if(namePokemonDb.length>0)return namePokemonDb
+    else return([{error:"No se encontraron pokemons con los criterios solicitados"}])
+
 }
 
 const PokemonsFilterData=(pokemon)=>{

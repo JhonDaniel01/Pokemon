@@ -33,7 +33,8 @@ const findAllPokemons=async(pag=1,filter,order,name,type)=>{
             break;
     }        
     //return allPokemons.slice((pag*12)-12,(pag*12));//0-11 12-23 24-35
-    return allPokemons
+    if(allPokemons.length>0)return allPokemons
+    else return ([{error:"No se encontraron pokemons con los criterios solicitados"}])
 }
 
 const pokemonId=async(idPokemon,source)=>{
