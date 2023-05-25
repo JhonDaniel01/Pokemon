@@ -5,6 +5,7 @@ export const GET_ALL_POKEMON = "GET_ALL_POKEMON";
 export const GET_DETAIL_POKEMON = "GET_DETAIL_POKEMON";
 export const GET_BY_NAME = "GET_BY_NAME";
 export const FILTER_FRONT = "FILTER_FRONT";
+export const CLEAR_DETAIL= "CLEAR_DETAIL"
 export const URL="http://localhost:3001/"
 
 
@@ -34,6 +35,10 @@ export const getPokemons = (order="",type="") => {
       const response=await axios.get(`http://localhost:3001/pokemons/${id}`)
       return dispatch({ type: GET_DETAIL_POKEMON, payload: response.data })
     };
+  };
+  export const clearDetailPokemon = () => {
+    return function (dispatch) {
+      return dispatch({ type: CLEAR_DETAIL, payload: [] })}
   };
   export const addCharacter = (pokemon) => {
     console.log(pokemon);

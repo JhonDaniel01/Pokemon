@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { getDetailPokemon } from '../../redux/actions'
+import { getDetailPokemon, clearDetailPokemon } from '../../redux/actions'
 import {Link} from 'react-router-dom'
 import './detail.styles.css'
 
@@ -11,6 +11,7 @@ const Detail=()=>{
     const {id}=useParams();
     useEffect(()=>{
         dispatch(getDetailPokemon(id))
+        return (()=>{dispatch(clearDetailPokemon())})
     },[])
     //const {name,image,types,id}=detailPokemon
     console.log(detailPokemon);

@@ -9,8 +9,8 @@ const Navbar=({handleChange,handleSubmit})=>{
                 <button type="submit" onClick={handleSubmit}>Search</button>
             </form>
             <div className='bContainer'>
-            <Link to="/home"><button>Home</button></Link>
             <Link to="/create"><button>Create</button></Link>
+            <button onClick={() => window.location.reload()}>Refresh</button>
             </div>
         </div>
     )

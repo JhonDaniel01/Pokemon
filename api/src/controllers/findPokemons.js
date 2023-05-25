@@ -2,7 +2,7 @@ const axios=require("axios")
 const {Pokemon,Type}=require('../db')
 const {Op}=require('sequelize')
 const URL="https://pokeapi.co/api/v2/pokemon"
-const amountPokemonsApi=20;
+const amountPokemonsApi=40;
 
 const findAllPokemonsApi=async()=>{
      const allPokemons=(await axios.get(`${URL}?limit=${amountPokemonsApi}`)).data.results;
@@ -59,7 +59,7 @@ const filterTypePokemon=async(type,pokemons)=>{
 const findNamePokemon=async(name)=>{
     const namePokemonDb= await Pokemon.findAll({
         where: {
-            name: name
+            name: {[Op.iLike]: name}
         },
         include:{
             model: Type,
@@ -70,7 +70,7 @@ const findNamePokemon=async(name)=>{
         }
     })
     try {
-        const namePokemonApi=PokemonsFilterData((await axios.get(`${URL}/${name}`)).data)
+        const namePokemonApi=PokemonsFilterData((await axios.get(`${URL}/${name.toLowerCase()}`)).data)
         namePokemonDb.push(namePokemonApi);
     } catch (error) {}
       

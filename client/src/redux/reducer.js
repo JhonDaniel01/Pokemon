@@ -1,4 +1,4 @@
-import {GET_ALL_POKEMON,GET_TYPES,GET_DETAIL_POKEMON,GET_BY_NAME,FILTER_FRONT} from './actions'
+import {GET_ALL_POKEMON,GET_TYPES,GET_DETAIL_POKEMON,GET_BY_NAME,FILTER_FRONT,CLEAR_DETAIL} from './actions'
 let initialState={allPokemons:[],copyAllPokemons:[],allTypes:[],detailPokemon:[]}
 
 const rootReducer=(state=initialState,action)=>{
@@ -13,7 +13,9 @@ const rootReducer=(state=initialState,action)=>{
             return {...state,allTypes: action.payload}
         case FILTER_FRONT:
             console.log(action.payload);
-            return {...state,allPokemons: action.payload}    
+            return {...state,allPokemons: action.payload} 
+        case CLEAR_DETAIL:
+            return {...state,detailPokemon: action.payload}    
         default:
             return state;
     }
