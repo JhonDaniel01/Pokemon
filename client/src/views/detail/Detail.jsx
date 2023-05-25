@@ -17,17 +17,21 @@ const Detail=()=>{
     return(
         <div className="detailContainer">
         {detailPokemon.types ?(
-            <>
+            <> 
             <h1>{detailPokemon.name}</h1>
-            <img src={detailPokemon?.image}/>
-            <h1>Live: {detailPokemon.live}</h1>
-            <h1>attack: {detailPokemon.attack}</h1>
-            <h1>defense: {detailPokemon.defense}</h1>
-            <h1>speed: {detailPokemon.speed}</h1>
-            <h1>height: {detailPokemon.height}</h1>
-            <h1>weight: {detailPokemon.weight}</h1>
-            <h1>Types:</h1>
-            {detailPokemon.types.map(type=><h2>{type.name}</h2>)}            
+            <img className='imag' src={detailPokemon?.image}/>
+            <div className='containerText1'>
+                <h2>Live: {detailPokemon.live}</h2>
+                <h2>attack: {detailPokemon.attack}</h2>
+                <h2>defense: {detailPokemon.defense}</h2>
+                <h2>speed: {detailPokemon.speed}</h2>
+            </div>
+            <div className='containerText2'>
+                <h2>height: {detailPokemon.height}</h2>
+                <h2>weight: {detailPokemon.weight}</h2>
+                <h2>Types:</h2>
+                {detailPokemon.types.map(type=><h3>{type.name}</h3>)}            
+            </div>
             </>
             ):(<h3>Loading...</h3>)}
             <Link to="/home"><button>Regresar</button></Link>

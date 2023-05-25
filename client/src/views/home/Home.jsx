@@ -46,6 +46,7 @@ const Home=()=>{
         setPag(event.target.name)
     }
     const handleChangeOrder=(event)=>{
+        setPag(1);
         const order=event.target.value
         dispatch(getPokemons(order))
     }
@@ -62,21 +63,37 @@ const Home=()=>{
         )
     }
     const handleChangeType=(event)=>{
-        console.log(event);
+        
         const type=event.target.value;
-        dispatch(getPokemons(type,type))
+        dispatch(getPokemons(undefined,type))
     }
- 
+    const selecOrder=()=>{
+
+        return (
+            <form action="#">
+            <label>Order: </label>
+            <select name="order" id="order" onChange={handleChangeOrder}>
+                <option value="noOrder" >--Select order--</option>
+                <option value="nameDes" >Name A-Z</option>
+                <option value="nameAsc" >Name Z-A</option>
+                <option value="attackDes" >Attack May-Men</option>
+                <option value="attackAsc" >Attack Men-May</option>
+            </select>
+        </form>
+        )
+    }
     const selectFiterOrigin=()=>{
         return(
+            <div>
             <form action="#">
             <label >filter by data source: </label>
             <select name="filterOrigin" id="filtOrigin" onChange={handleChangeFilOrder}>
-                <option >--Selec Origin--</option>
+                <option value="all">--Selec Origin--</option>
                 <option value="DataBase" >Data Base</option>
                 <option value="Api" >Api</option>
             </select>
             </form>
+            </div>
             
         )
     }
@@ -88,31 +105,28 @@ const Home=()=>{
         const regex = /^([0-9])+$/
         if(origin==="DataBase"){
             filter=copyAllPokemons.filter(pokemon=>!regex.test(pokemon.id))
-            dispatch(filterFront(filter));
+            
         }
         if(origin==="Api"){
             filter=copyAllPokemons.filter(pokemon=>regex.test(pokemon.id))
-            dispatch(filterFront(filter));
+           
         }
+        if (origin==="all") filter=allPokemons
+        
+        if (filter.length>0)dispatch(filterFront(filter))
+        else alert("No se encontraron pokemons con los criterios especificados")
    }
     return(
         <div className="homeContainer">
             <h2>Home</h2>
             <Navbar handleChange={handleChange} handleSubmit={handleSubmit}/>
-            <form action="#">
-                <label>Order: </label>
-                <select name="order" id="order" onChange={handleChangeOrder}>
-                    <option value="noOrder" >--Select order--</option>
-                    <option value="nameDes" >Name A-Z</option>
-                    <option value="nameAsc" >Name Z-A</option>
-                    <option value="attackDes" >Attack May-Men</option>
-                    <option value="attackAsc" >Attack Men-May</option>
-                </select>
-            </form>
+        <div className="filters">
+            {selecOrder()}
             {selectFilterType()}            
             {selectFiterOrigin()}
+            </div>
             <div className="pagin">
-                {paginas.map(pag=><button name={pag} onClick={pagHandler}>{pag}</button>) }
+                {paginas.map(pagi=><button name={pagi} onClick={pagHandler} className={pagi==pag?"paginSelect":""}>{pagi}</button>) }
             </div>
             <Cards  allPokemons={pokemons}/>
         </div>

@@ -35,7 +35,7 @@ import "./create.styles.css"
     }
     
     const handleSubmit=(event)=>{
-        event.preventDefault();
+        
         const newPokemon={
             name: form.name,
             height:form.height,
@@ -49,7 +49,7 @@ import "./create.styles.css"
         }
         axios.post("http://localhost:3001/pokemons",newPokemon)
         .then(res=>console.log(res)).catch(err=>console.log(err))
-
+        alert("Pokemon creado con exito")
     }
     return(
         <div className="form">

@@ -1,8 +1,16 @@
-.seachBox{
+.seachBox {
     border: none;
     outline: none;
     padding: 10px;
-    width: 150px;
+    width: 200;
     line-height: 30px;
     margin-bottom: 30px;
+    
+}
+.bContainer{
+    display: flex;
+    justify-content:space-between ;
+}
+.bContainer button {
+    width: 100px;
 }

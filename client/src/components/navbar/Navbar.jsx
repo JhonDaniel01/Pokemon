@@ -8,8 +8,10 @@ const Navbar=({handleChange,handleSubmit})=>{
                 <input placeholder="Search" type="search"></input>
                 <button type="submit" onClick={handleSubmit}>Search</button>
             </form>
+            <div className='bContainer'>
             <Link to="/home"><button>Home</button></Link>
             <Link to="/create"><button>Create</button></Link>
+            </div>
         </div>
     )
  }

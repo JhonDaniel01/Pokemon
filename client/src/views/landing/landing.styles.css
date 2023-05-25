@@ -1,0 +1,22 @@
+.container {
+    background-image: url("../../img/poke3.jpeg");
+    margin: 0;
+    width: 98vw;
+    height: 98vh;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    place-items: center;
+    overflow: hidden;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.container button{
+    height: 50px;
+    width: 200px;
+    font-size: x-large;
+}
+button:hover {
+    transform: scale(1.05);
+}
