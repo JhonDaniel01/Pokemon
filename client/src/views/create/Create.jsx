@@ -48,8 +48,7 @@ import "./create.styles.css"
             types:[form.type1,form.type2]
         }
         axios.post("http://localhost:3001/pokemons",newPokemon)
-        .then(res=>console.log(res)).catch(err=>console.log(err))
-        alert("Pokemon creado con exito")
+        .then(res=>alert(res)).catch(err=>alert(err))
     }
     return(
         <div className="form">
