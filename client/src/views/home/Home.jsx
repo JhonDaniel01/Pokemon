@@ -31,6 +31,7 @@ const Home=()=>{
 
     const handleSubmit=(event)=>{
         event.preventDefault()
+        setPag(1);
         dispatch(getByName(search))
     }
     
@@ -56,6 +57,7 @@ const Home=()=>{
     
     
     const handleChangeType=(event)=>{
+        setPag(1);
         const type=event.target.value;
         if (type==="noFilterType")dispatch(getPokemons())
         else dispatch(getPokemons(undefined,type))
