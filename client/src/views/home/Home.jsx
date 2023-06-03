@@ -78,7 +78,7 @@ const Home=()=>{
         if (origin==="all") filter=allPokemons
         
         if (filter.length>0)dispatch(filterFront(filter))
-        else alert("No se encontraron pokemons con los criterios especificados")
+        else alert("No se encontraron pokemons con los criterios de busqueda especificados")
    }
 
     return(
